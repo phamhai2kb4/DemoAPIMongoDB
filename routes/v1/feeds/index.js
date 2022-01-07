@@ -8,7 +8,7 @@ const {
   updateFeed,
 } = require("../../../api/feeds.api");
 
-router.get("/", async (ctx, next) => {
+router.get("/", async (ctx) => {
   ctx.response.status = 200;
   ctx.body = await getFeeds();
 });
@@ -16,10 +16,10 @@ router.get("/", async (ctx, next) => {
 router.get("/:id", async (ctx) => {
   const id = ctx.params.id;
   ctx.body = await getFeedById(id);
+  ctx.response.status = 200;
 });
 
-router.post("/", async (ctx, next) => {
-  console.log(ctx.request.body);
+router.post("/", async (ctx) => {
   let feed = ctx.request.body;
   feed = await createFeed(feed);
   ctx.response.status = 200;
@@ -29,6 +29,7 @@ router.post("/", async (ctx, next) => {
 router.delete("/:id", async (ctx) => {
   const id = ctx.params.id;
   ctx.body = await deleteFeed(id);
+  ctx.response.status = 200;
 });
 
 router.put("/:id", async (ctx) => {
